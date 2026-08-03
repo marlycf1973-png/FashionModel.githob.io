@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fashion Model – Ropa & Accesorios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            magenta: { 500: '#d6006e', 600: '#b8005e', 700: '#97004e' },
+            fucsia: { 400: '#f0429a', 500: '#e0187e' },
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          },
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .hero-bg {
+      background-image: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.5) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');
+      background-size: cover;
+      background-position: center top;
+    }
+    .nav-link { transition: color .2s; }
+    .nav-link:hover { color: #d6006e; }
+    .btn-magenta { background: linear-gradient(135deg, #d6006e 0%, #f0429a 100%); }
+    .btn-magenta:hover { background: linear-gradient(135deg, #b8005e 0%, #d6006e 100%); }
+    .product-card:hover .product-img { transform: scale(1.04); }
+    .product-img { transition: transform .4s ease; }
+    .countdown-box { background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(4px); }
+    #modal-overlay { transition: opacity .3s; }
+    .tag-brand {
+      background: linear-gradient(135deg, #d6006e 0%, #f0429a 100%);
+      letter-spacing: .04em;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- TOP BAR -->
+  <div class="bg-magenta-500 text-white text-center text-xs py-2 px-4 tracking-wide font-medium">
+    🚚 Envíos a todo Chile · Compra segura · Atención personalizada por WhatsApp
+  </div>
+
+  <!-- HEADER -->
+  <header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#" class="flex-shrink-0">
+        <span class="text-2xl font-black tracking-tight text-gray-900">Fashion<span class="text-magenta-500">Model</span></span>
+      </a>
+      <!-- Nav desktop -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
+        <a href="#" class="nav-link font-semibold text-magenta-500 border-b-2 border-magenta-500 pb-0.5">New In</a>
+        <a href="#catalogo" class="nav-link">Mujer</a>
+        <a href="#catalogo" class="nav-link">Accesorios</a>
+        <a href="#" class="nav-link font-semibold text-red-500">Sale</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <!-- Actions -->
+      <div class="flex items-center gap-4">
+        <!-- Search -->
+        <button class="hidden md:flex items-center gap-2 text-gray-500 hover:text-magenta-500 transition-colors text-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <!-- Cart -->
+        <button class="relative text-gray-700 hover:text-magenta-500 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="absolute -top-1.5 -right-1.5 bg-magenta-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">0</span>
+        </button>
+        <!-- WhatsApp CTA -->
+        <a href="https://wa.me/56940149309" target="_blank" rel="noopener" class="hidden md:inline-flex items-center gap-2 btn-magenta text-white text-sm font-semibold px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-shadow">
+          <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.44l-.37-.22-3.88 1.02 1.03-3.79-.24-.39A9.93 9.93 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.47-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+          Contáctame
+        </a>
+        <!-- Hamburger mobile -->
+        <button id="menu-btn" class="md:hidden text-gray-700 hover:text-magenta-500 transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile nav -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pb-4">
+      <nav class="flex flex-col gap-3 pt-3 text-sm font-medium text-gray-700">
+        <a href="#" class="text-magenta-500 font-semibold">New In</a>
+        <a href="#catalogo" class="nav-link">Mujer</a>
+        <a href="#catalogo" class="nav-link">Accesorios</a>
+        <a href="#" class="text-red-500 font-semibold">Sale</a>
+        <a href="https://wa.me/56940149309" target="_blank" rel="noopener" class="btn-magenta text-white text-center font-semibold px-4 py-2 rounded-full mt-2">Contáctame por WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="hero-bg relative min-h-[88vh] flex items-center justify-center">
+    <div class="text-center text-white px-4 z-10">
+      <p class="uppercase tracking-[.25em] text-xs font-semibold mb-3 opacity-80">Nueva Colección</p>
+      <h1 class="text-5xl md:text-7xl font-black leading-tight mb-4 drop-shadow-lg">Moda que<br/><span class="text-fucsia-400">te define</span></h1>
+      <p class="text-lg md:text-xl font-light mb-8 max-w-md mx-auto opacity-90">Ropa y accesorios seleccionados para la mujer de hoy.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#catalogo" class="btn-magenta text-white font-bold px-8 py-3.5 rounded-full shadow-xl text-base hover:shadow-2xl transition-shadow">Ver catálogo</a>
+        <a href="https://wa.me/56940149309" target="_blank" rel="noopener" class="bg-white/15 backdrop-blur border border-white/40 text-white font-semibold px-8 py-3.5 rounded-full text-base hover:bg-white/25 transition">Consultar stock</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPUP / MODAL "Solo por Hoy" -->
+  <div id="modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+    <div class="relative bg-white rounded-3xl shadow-2xl max-w-sm w-full overflow-hidden">
+      <!-- Top accent bar -->
+      <div class="btn-magenta h-2 w-full"></div>
+      <!-- Close -->
+      <button id="close-modal" class="absolute top-3 right-4 text-gray-400 hover:text-gray-700 text-2xl font-light leading-none">&times;</button>
+      <div class="px-8 pt-6 pb-8 text-center">
+        <p class="uppercase text-xs tracking-widest text-magenta-500 font-bold mb-1">⚡ Oferta Flash</p>
+        <h2 class="text-3xl font-black text-gray-900 leading-tight mb-1">¡Solo por Hoy!</h2>
+        <p class="text-5xl font-black text-magenta-500 my-3">40% Dcto</p>
+        <p class="text-gray-600 text-sm mb-5 font-medium">en TODO Fashion Model<br/><span class="text-gray-400 font-normal">Tiempo limitado · No acumulable</span></p>
+        <!-- Countdown -->
+        <div class="flex justify-center gap-3 mb-6">
+          <div class="countdown-box rounded-xl px-4 py-3 bg-gray-900 text-white min-w-[62px]">
+            <p id="cd-hours" class="text-2xl font-black leading-none">00</p>
+            <p class="text-[10px] uppercase tracking-widest mt-1 text-gray-400">Horas</p>
+          </div>
+          <span class="text-2xl font-black text-gray-400 self-center">:</span>
+          <div class="countdown-box rounded-xl px-4 py-3 bg-gray-900 text-white min-w-[62px]">
+            <p id="cd-mins" class="text-2xl font-black leading-none">00</p>
+            <p class="text-[10px] uppercase tracking-widest mt-1 text-gray-400">Min</p>
+          </div>
+          <span class="text-2xl font-black text-gray-400 self-center">:</span>
+          <div class="countdown-box rounded-xl px-4 py-3 bg-gray-900 text-white min-w-[62px]">
+            <p id="cd-secs" class="text-2xl font-black leading-none">00</p>
+            <p class="text-[10px] uppercase tracking-widest mt-1 text-gray-400">Seg</p>
+          </div>
+        </div>
+        <a href="#catalogo" id="modal-cta" class="btn-magenta text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg block hover:shadow-xl transition-shadow">¡Aprovechar descuento!</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOG SECTION -->
+  <section id="catalogo" class="max-w-7xl mx-auto px-4 py-16">
+    <div class="text-center mb-12">
+      <p class="text-xs uppercase tracking-widest text-magenta-500 font-bold mb-2">Catálogo</p>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900">Colección Actual</h2>
+      <p class="text-gray-500 mt-2 text-sm">Selección exclusiva · Stock limitado</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+
+      <!-- Product 1 -->
+      <article class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+        <div class="overflow-hidden relative">
+          <span class="tag-brand absolute top-3 left-3 z-10 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full tracking-widest">Fashion Model</span>
+          <img src="https://res.cloudinary.com/dy1ibwcdn/image/upload/v1781734431/Gemini_Generated_Image_r4w59wr4w59wr4w5_vdpj0i.png" alt="Conjunto Blazer Azul Marino con Blusa Blanca" class="product-img w-full h-72 object-cover object-top" />
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-sm font-semibold text-gray-800 leading-snug mb-1">Conjunto Blazer Azul Marino con Blusa Blanca</h3>
+          <p class="text-magenta-500 font-black text-lg mt-auto pt-2">$48.800</p>
+          <a href="https://wa.me/56940149309?text=Hola!%20Me%20interesa%20el%20Conjunto%20Blazer%20Azul%20Marino%20%2448.800" target="_blank" rel="noopener" class="mt-3 btn-magenta text-white text-xs font-bold px-4 py-2.5 rounded-full text-center hover:shadow-md transition-shadow">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+        <div class="overflow-hidden relative">
+          <span class="tag-brand absolute top-3 left-3 z-10 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full tracking-widest">Fashion Model</span>
+          <img src="https://res.cloudinary.com/dy1ibwcdn/image/upload/v1781734430/Gemini_Generated_Image_9us1fe9us1fe9us1_qitp2t.png" alt="Cartera Azul con Café, Ecocuero" class="product-img w-full h-72 object-cover object-center" />
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-sm font-semibold text-gray-800 leading-snug mb-1">Cartera Azul con Café, Ecocuero</h3>
+          <p class="text-magenta-500 font-black text-lg mt-auto pt-2">$32.900</p>
+          <a href="https://wa.me/56940149309?text=Hola!%20Me%20interesa%20la%20Cartera%20Azul%20con%20Caf%C3%A9%20Ecocuero%20%2432.900" target="_blank" rel="noopener" class="mt-3 btn-magenta text-white text-xs font-bold px-4 py-2.5 rounded-full text-center hover:shadow-md transition-shadow">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+        <div class="overflow-hidden relative">
+          <span class="tag-brand absolute top-3 left-3 z-10 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full tracking-widest">Fashion Model</span>
+          <img src="https://res.cloudinary.com/dy1ibwcdn/image/upload/v1781734425/Gemini_Generated_Image_j8oq7fj8oq7fj8oq_o3jvfr.png" alt="Blusa Burdeo" class="product-img w-full h-72 object-cover object-top" />
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-sm font-semibold text-gray-800 leading-snug mb-1">Blusa Burdeo</h3>
+          <p class="text-magenta-500 font-black text-lg mt-auto pt-2">$19.900</p>
+          <a href="https://wa.me/56940149309?text=Hola!%20Me%20interesa%20la%20Blusa%20Burdeo%20%2419.900" target="_blank" rel="noopener" class="mt-3 btn-magenta text-white text-xs font-bold px-4 py-2.5 rounded-full text-center hover:shadow-md transition-shadow">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+        <div class="overflow-hidden relative">
+          <span class="tag-brand absolute top-3 left-3 z-10 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full tracking-widest">Fashion Model</span>
+          <img src="https://res.cloudinary.com/dy1ibwcdn/image/upload/v1781734421/Gemini_Generated_Image_qm5z0sqm5z0sqm5z_ojqi9x.png" alt="Polera Lanilla" class="product-img w-full h-72 object-cover object-top" />
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-sm font-semibold text-gray-800 leading-snug mb-1">Polera Lanilla</h3>
+          <p class="text-magenta-500 font-black text-lg mt-auto pt-2">$21.900</p>
+          <a href="https://wa.me/56940149309?text=Hola!%20Me%20interesa%20la%20Polera%20Lanilla%20%2421.900" target="_blank" rel="noopener" class="mt-3 btn-magenta text-white text-xs font-bold px-4 py-2.5 rounded-full text-center hover:shadow-md transition-shadow">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Product 5 -->
+      <article class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow overflow-hidden flex flex-col">
+        <div class="overflow-hidden relative">
+          <span class="tag-brand absolute top-3 left-3 z-10 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full tracking-widest">Fashion Model</span>
+          <img src="https://res.cloudinary.com/dy1ibwcdn/image/upload/v1781734419/Gemini_Generated_Image_x04mlcx04mlcx04m_oalvhr.png" alt="Anillo de Plata" class="product-img w-full h-72 object-cover object-center" />
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <h3 class="text-sm font-semibold text-gray-800 leading-snug mb-1">Anillo de Plata</h3>
+          <p class="text-magenta-500 font-black text-lg mt-auto pt-2">$38.900</p>
+          <a href="https://wa.me/56940149309?text=Hola!%20Me%20interesa%20el%20Anillo%20de%20Plata%20%2438.900" target="_blank" rel="noopener" class="mt-3 btn-magenta text-white text-xs font-bold px-4 py-2.5 rounded-full text-center hover:shadow-md transition-shadow">Consultar por WhatsApp</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section id="contacto" class="btn-magenta py-14 px-4">
+    <div class="max-w-2xl mx-auto text-center text-white">
+      <p class="text-xs uppercase tracking-widest font-bold mb-2 opacity-80">¿Tienes dudas?</p>
+      <h2 class="text-3xl md:text-4xl font-black mb-3">Escríbenos directamente</h2>
+      <p class="text-white/80 mb-7 text-sm max-w-md mx-auto">Te respondemos al instante por WhatsApp. Consulta tallas, disponibilidad y tiempos de envío.</p>
+      <a href="https://wa.me/56940149309" target="_blank" rel="noopener" class="inline-flex items-center gap-3 bg-white text-magenta-500 font-bold px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-shadow text-base">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.44l-.37-.22-3.88 1.02 1.03-3.79-.24-.39A9.93 9.93 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.47-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+        Contáctame ahora
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-400 text-sm">
+    <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- Brand -->
+      <div>
+        <span class="text-2xl font-black text-white">Fashion<span class="text-fucsia-400">Model</span></span>
+        <p class="mt-3 text-gray-500 text-xs leading-relaxed">Tu tienda de moda y accesorios en La Unión.<br/>Atención personalizada, estilo para cada ocasión.</p>
+        <div class="flex gap-3 mt-4">
+          <a href="https://wa.me/56940149309" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-magenta-500 transition-colors">
+            <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.44l-.37-.22-3.88 1.02 1.03-3.79-.24-.39A9.93 9.93 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.47-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- Links -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Catálogo</h4>
+        <ul class="space-y-2 text-xs text-gray-500">
+          <li><a href="#catalogo" class="hover:text-magenta-500 transition-colors">New In</a></li>
+          <li><a href="#catalogo" class="hover:text-magenta-500 transition-colors">Ropa Mujer</a></li>
+          <li><a href="#catalogo" class="hover:text-magenta-500 transition-colors">Accesorios</a></li>
+          <li><a href="#catalogo" class="hover:text-magenta-500 transition-colors">Ofertas</a></li>
+        </ul>
+      </div>
+      <!-- Contact + Location -->
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Visítanos</h4>
+        <div class="flex items-start gap-2 text-xs text-gray-500 mb-3">
+          <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-magenta-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Manuel Montt 318,<br/>La Unión, Los Ríos, Chile</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-gray-500">
+          <svg class="w-4 h-4 flex-shrink-0 text-magenta-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.53 6.53l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="https://wa.me/56940149309" class="hover:text-magenta-500 transition-colors">+56 9 4014 9309</a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 text-center py-5 text-xs text-gray-600">
+      © 2025 Fashion Model · La Unión, Chile · Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLOATING BUTTON -->
+  <a href="https://wa.me/56940149309" target="_blank" rel="noopener"
+     class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
+     title="Contáctanos por WhatsApp">
+    <svg class="w-8 h-8 fill-white" viewBox="0 0 24 24"><path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.19-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52zM12 22c-1.85 0-3.66-.5-5.23-1.44l-.37-.22-3.88 1.02 1.03-3.79-.24-.39A9.93 9.93 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.47-7.3c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.28.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+  </a>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menu-btn').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Modal close
+    function closeModal() {
+      const overlay = document.getElementById('modal-overlay');
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      setTimeout(() => overlay.style.display = 'none', 300);
+    }
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+    document.getElementById('modal-cta').addEventListener('click', closeModal);
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // Countdown – 8 hours from page load
+    const end = Date.now() + 8 * 60 * 60 * 1000;
+    function updateCountdown() {
+      const diff = Math.max(0, end - Date.now());
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
